@@ -212,15 +212,15 @@ compress_tiff <- function(filepath){
 plot <- function(){
   par(mfrow=c(1,1),  xpd=NA)
   boxplot(A4ratio,A7ratio,A10ratio,A6ratio, A9ratio, A12ratio, at=c(1,2,3,5,6,7), boxwex = 0.5, col=c("#a1bfd4","#a1bfd4","#a1bfd4","#cccccc","#cccccc","#cccccc"), cex.axis = 0.9, names =  c("Site 4", "Site 7", "Site 10", "Site 6", "Site 9", "Site 12"), ylab = expression(paste(italic("A"), " Ratio")))
-  text( 2, -0.3, "Nonsynonymous sites")
-  text( 6, -0.3, "Synonymous sites")
+  text( 2, -0.4, "Nonsynonymous sites")
+  text( 6, -0.4, "Synonymous sites")
 }
 
 pdf("outputs/graphs/4.2_site_A_ratios.pdf", width = 30, height=20, pointsize=40)
 plot()
 dev.off()
 
-tiff("outputs/graphs/tiff/4.2_site_A_ratios.tiff", width = 4800, height = 3600, units = "px", res=400)
+tiff("outputs/graphs/tiff/4.2_site_A_ratios.tiff", width = 180, height = 140, units = "mm", res=600)
 plot()
 dev.off()
 

@@ -215,12 +215,13 @@ plot <- ggplot(site_4_ratios) +
   geom_smooth(aes(x=GC3, y=Prop_A_Codons, color="points2"),method = "lm", se = FALSE, size=0.8) +
   scale_x_continuous(breaks = seq(0, 1, 0.1), limits=c(0.1, 1)) +
   scale_y_continuous(breaks = seq(0, 1, 0.1), limits=c(0.1, 0.7)) +
-  labs(x="GC3", y="Genome Proportion") +
+  labs(x="GC3", y="Genome proportion") +
   scale_colour_manual(name=element_blank(), values=c(points1="blue", points2="black"), labels=c(lab1, lab2)) +
   theme_Publication(base_size=16) +
   theme(legend.position = c(0.25,0.1), legend.text=element_text(size=16), legend.text.align = 0)
 
-ggsave('4.1_A_proportions.tiff', path="outputs/graphs/tiff/", plot = plot, dpi=400)
+ggsave('4.1_A_proportions.pdf', path="outputs/graphs/", plot = plot, dpi=600, width=180, height=180, units="mm")
+ggsave('4.1_A_proportions.tiff', path="outputs/graphs/tiff/", plot = plot, dpi=350, width=180, height=180, units="mm")
 compress_tiff('outputs/graphs/tiff/4.1_A_proportions.tiff')
 
 
@@ -291,7 +292,7 @@ plot7 <- generate_density_plot(7)
 library(gridExtra)
 plot <- grid.arrange(plot4, plot5, plot6, plot7, nrow=2)
 ggsave('4.1_sites_proportion_kernel_densities.pdf', path="outputs/graphs/", plot = plot, dpi=400)
-ggsave('4.1_sites_proportion_kernel_densities.tiff', path="outputs/graphs/tiff/", plot = plot, dpi=400)
+ggsave('4.1_sites_proportion_kernel_densities.tiff', path="outputs/graphs/tiff/", plot = plot, dpi=600, width=180, height=180, units="mm")
 compress_tiff('outputs/graphs/tiff/4.1_sites_proportion_kernel_densities.tiff')
 
 

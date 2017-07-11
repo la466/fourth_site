@@ -160,7 +160,7 @@ compress_tiff <- function(filepath) {
 }
 
 ggsave('outputs/graphs/6_aod.pdf', plot=plot, dpi=600, width=7, height=12)
-ggsave('outputs/graphs/tiff/6_aod.tiff', plot = plot, type="cairo", width=7, height=12, dpi=400)
+ggsave('outputs/graphs/tiff/6_aod.tiff', plot = plot, type="cairo", width=180, height=360, dpi=600, units="mm")
 compress_tiff('outputs/graphs/tiff/6_aod.tiff')
 
 print('Graph in outputs/graphs')

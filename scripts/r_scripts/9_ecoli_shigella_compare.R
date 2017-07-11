@@ -112,7 +112,7 @@ plot <- ggplot() +
 
 
 ggsave('9_ecoli_shigella_comparison.pdf', path="outputs/graphs/", plot = plot, dpi=400)
-ggsave('9_ecoli_shigella_comparison.tiff', path="outputs/graphs/tiff/", plot = plot, dpi=400)
+ggsave('9_ecoli_shigella_comparison.tiff', path="outputs/graphs/tiff/", plot = plot, dpi=600, width=180, height=180, units="mm")
 compress_tiff('outputs/graphs/tiff/9_ecoli_shigella_comparison.tiff')
 
 
