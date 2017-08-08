@@ -89,12 +89,9 @@ def run_genomes():
 
     genomes = []
 
-    genome_count = 0
     # For each of the genomes in the directory containing the test genomes
     for genome in os.listdir('genome_extractions/t4/'):
-        genome_count += 1
-        if genome_count <= 20:
-            genomes.append(genome)
+        genomes.append(genome)
 
 
 
