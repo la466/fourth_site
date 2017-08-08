@@ -12,7 +12,7 @@ dir.create(file.path("outputs/", "graphs/tiff/"), showWarnings = FALSE)
 ################
 
 compare_with_codonw <- read.csv("outputs/expression/_ecoli_codonw_compare.csv", head=TRUE)
-cai_gc_file <- read.csv("outputs/expression/_CAI_GC.csv", head=T)
+cai_gc_file <- read.csv("outputs/expression/_CAI_a_ratios.csv", head=T)
 CAI_a_nota_file <- read.csv("outputs/expression/_CAI_a_nota.csv", head = T)
 CAI_high_low_file <- read.csv("outputs/expression/_high_low_CAI_compare.csv", head = T)
 

@@ -789,7 +789,7 @@ def analyse_dgs(dGvalues, upstreamDirectory, GCs, GC3s, Aratios, antiSDsequences
 
 	genomeOutputFilePath = output_sd_dir + "_sdSequenceAnalysis.csv"
 	genomeOutputFile = open(genomeOutputFilePath, "w")
-	genomeOutputFile.write('genome,gc,gc3,a_ratio,num_genes,prop_sd,prop_no_sd,prop_sd_a,prop_no_sd_a,prop_weak_sd_a,prop_strong_sd_a,near_prop,far_prop\n')
+	genomeOutputFile.write('acc,gc,gc3,a_ratio,num_genes,prop_sd,prop_no_sd,prop_sd_a,prop_no_sd_a,prop_weak_sd_a,prop_strong_sd_a,near_prop,far_prop\n')
 
 
 	sdPosCount = {}

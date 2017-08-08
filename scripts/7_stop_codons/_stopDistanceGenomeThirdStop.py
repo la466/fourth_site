@@ -93,7 +93,7 @@ def newFile():
 
 def fileHead(file):
 
-	file.write("genome,gc,prop_A,prop_C,prop_T,prop_G,codons_A,codons_C,codons_T,codons_G,A_ratio,C_ratio,T_ratio,G_ratio,mean_dist,mean_dist_A,mean_dist_notA\n")
+	file.write("acc,gc,prop_A,prop_C,prop_T,prop_G,codons_A,codons_C,codons_T,codons_G,A_ratio,C_ratio,T_ratio,G_ratio,mean_dist,mean_dist_A,mean_dist_notA\n")
 
 def fileHeadDist(file):
 
@@ -242,7 +242,7 @@ def getStopDistance(genomes,acc,numGenomes,fileNumber, stopDistance,stopDistance
 
 
 		genomeLine = ""
-		genomeLine += "%s,%s" % (genome, proportion(sum(GC), len(GC)))
+		genomeLine += "%s,%s" % (acc, proportion(sum(GC), len(GC)))
 
 
 

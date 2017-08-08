@@ -220,16 +220,16 @@ def nucleotideCounts(genomes,acc,numGenomes,fileNumber,aodFile, differences, gc_
 
 		# Set up the list to hold the differences between second codon
 		# and total codons frequency for the genome
-		differences[genome] = {}
-		differences[genome][GC] = {}
+		differences[acc] = {}
+		differences[acc][GC] = {}
 		for amino in codon_map:
-			differences[genome][GC][codon_map[amino]] = {}
+			differences[acc][GC][codon_map[amino]] = {}
 
 
 		# Calculate difference of nucleotide frequency for all positions
 		# between the second codon and all codons
 		for amino in codon_map:
-			differences[genome][GC][codon_map[amino]] = proportion(secondCodon[codon_map[amino]],totalGenes) - proportion(totalCodons[codon_map[amino]], totalCodonCount)
+			differences[acc][GC][codon_map[amino]] = proportion(secondCodon[codon_map[amino]],totalGenes) - proportion(totalCodons[codon_map[amino]], totalCodonCount)
 
 
 		return differences
@@ -265,11 +265,11 @@ def aodAnalysis(differences, numGenomes, aodFile, aodValuesFile, gc_groupings):
 
     headerLine = False
 
-    for genome in differences:
-    	for GC in differences[genome]:
+    for acc in differences:
+    	for GC in differences[acc]:
 
     		if headerLine == False:
-    			for amino in differences[genome][GC]:
+    			for amino in differences[acc][GC]:
     				fileLine = ",%s" % amino
     				aodValuesFile.write(fileLine)
     			aodValuesFile.write("\n")
@@ -279,29 +279,29 @@ def aodAnalysis(differences, numGenomes, aodFile, aodValuesFile, gc_groupings):
     		if GC <= lower_gc:
     			GClow += 1
 
-    			fileLine = "%s,%s" % (genome,GC)
+    			fileLine = "%s,%s" % (acc,GC)
     			aodValuesFile.write(fileLine)
 
 
-    			for amino in differences[genome][GC]:
-    				totalDifferences[amino]['low'] += differences[genome][GC][amino]
+    			for amino in differences[acc][GC]:
+    				totalDifferences[amino]['low'] += differences[acc][GC][amino]
 
 
-    				fileLine = ",%s" % differences[genome][GC][amino]
+    				fileLine = ",%s" % differences[acc][GC][amino]
     				aodValuesFile.write(fileLine)
     				# print genome,GC,amino
     		elif  GC > lower_gc and GC <= upper_gc:
     			GCmed += 1
 
-    			fileLine = "%s,%s" % (genome,GC)
+    			fileLine = "%s,%s" % (acc,GC)
     			aodValuesFile.write(fileLine)
 
 
-    			for amino in differences[genome][GC]:
-    				totalDifferences[amino]['med'] += differences[genome][GC][amino]
+    			for amino in differences[acc][GC]:
+    				totalDifferences[amino]['med'] += differences[acc][GC][amino]
 
 
-    				fileLine = ",%s" % differences[genome][GC][amino]
+    				fileLine = ",%s" % differences[acc][GC][amino]
     				aodValuesFile.write(fileLine)
 
     				# print genome,GC,amino
@@ -309,15 +309,15 @@ def aodAnalysis(differences, numGenomes, aodFile, aodValuesFile, gc_groupings):
 
     			GChigh += 1
 
-    			fileLine = "%s,%s" % (genome,GC)
+    			fileLine = "%s,%s" % (acc,GC)
     			aodValuesFile.write(fileLine)
 
 
-    			for amino in differences[genome][GC]:
-    				totalDifferences[amino]['high'] += differences[genome][GC][amino]
+    			for amino in differences[acc][GC]:
+    				totalDifferences[amino]['high'] += differences[acc][GC][amino]
 
 
-    				fileLine = ",%s" % differences[genome][GC][amino]
+    				fileLine = ",%s" % differences[acc][GC][amino]
     				aodValuesFile.write(fileLine)
 
     		aodValuesFile.write("\n")

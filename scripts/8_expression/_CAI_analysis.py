@@ -5,7 +5,7 @@
 # Prerequisite script(s):	1.1, 1.2, 2.1, 3.1, 3.2, 4.1, 8.1, 8.2, 8.3
 # Prerequisite file(s):		ACC/ACC.out, _site_4_ratios.csv
 # Description: 				Analyse the CAI values from CodonW run.
-# Output file(s):			_ecoli_codonw_compare.csv, _CAI_GC.csv, _CAI_a_notA.csv, _CAI_a_nota_restrictedGC3.csv, _high_low_CAI_compare.csv, high_low_CAI_compare_restrictedGC3.csv, _lowMeanCAIcompareFourthA.csv, _highMeanCAIcompareFourthA.csv
+# Output file(s):			_ecoli_codonw_compare.csv, _CAI_a_ratios.csv, _CAI_a_notA.csv, _CAI_a_nota_restrictedGC3.csv, _high_low_CAI_compare.csv, high_low_CAI_compare_restrictedGC3.csv, _lowMeanCAIcompareFourthA.csv, _highMeanCAIcompareFourthA.csv
 
 
 ##########################
@@ -283,8 +283,8 @@ def write_CAI_a_not_a(GC3s, meanA, meanNotA, CAIaNotaPath, CAIaNotaPathRestrictG
 	file = open(CAIaNotaPath, "w")
 	file.write("acc,gc3,meanCAI_a,meanCAI_not_a\n")
 
-	file2 = open(CAIaNotaPathRestrictGC3, "w")
-	file2.write("acc,gc3,meanCAI_a_restricted,meanCAI_not_a_restricted\n")
+	# file2 = open(CAIaNotaPathRestrictGC3, "w")
+	# file2.write("acc,gc3,meanCAI_a_restricted,meanCAI_not_a_restricted\n")
 
 
 	for acc in meanA:
@@ -294,11 +294,11 @@ def write_CAI_a_not_a(GC3s, meanA, meanNotA, CAIaNotaPath, CAIaNotaPathRestrictG
 			fileLine = "%s,%s,%s,%s\n" % (acc,GC3s[acc], meanA[acc], meanNotA[acc])
 			file.write(fileLine)
 
-			# Restrict the genomes without extreme GC3
-			if float(GC3s[acc]) > 0.2 and float(GC3s[acc]) < 0.9:
-
-				fileLine2 = "%s,%s,%s,%s\n" % (acc,GC3s[acc], meanA[acc], meanNotA[acc])
-				file2.write(fileLine2)
+			# # Restrict the genomes without extreme GC3
+			# if float(GC3s[acc]) > 0.2 and float(GC3s[acc]) < 0.9:
+			#
+			# 	fileLine2 = "%s,%s,%s,%s\n" % (acc,GC3s[acc], meanA[acc], meanNotA[acc])
+			# 	file2.write(fileLine2)
 
 
 
@@ -474,8 +474,8 @@ def compare_high_low_CAI(HE_genes, CAIvals, geneSeq, GC3s, highLowPath, highLowP
 	highOtherFile = open(highLowPath, "w")
 	highOtherFile.write("acc,gc3,prop_a_high,prop_a_other\n")
 
-	highOtherFile2 = open(highLowPathRestrictedGC3, "w")
-	highOtherFile2.write("acc,prop_a_high_restricted,prop_a_other_restricted\n")
+	# highOtherFile2 = open(highLowPathRestrictedGC3, "w")
+	# highOtherFile2.write("acc,prop_a_high_restricted,prop_a_other_restricted\n")
 
 	for acc in highCAIprops:
 
@@ -491,9 +491,9 @@ def compare_high_low_CAI(HE_genes, CAIvals, geneSeq, GC3s, highLowPath, highLowP
 				fileLine = "%s,%s,%s,%s\n" % (acc, GC3s[acc], highCAIprops[acc], otherCAIprops[acc])
 				highOtherFile.write(fileLine)
 
-				if float(GC3s[acc]) > 0.2 and float(GC3s[acc]) < 0.9:
-					fileLine2= "%s,%s,%s\n" % (acc, highCAIprops[acc], otherCAIprops[acc])
-					highOtherFile2.write(fileLine2)
+				# if float(GC3s[acc]) > 0.2 and float(GC3s[acc]) < 0.9:
+				# 	fileLine2= "%s,%s,%s\n" % (acc, highCAIprops[acc], otherCAIprops[acc])
+				# 	highOtherFile2.write(fileLine2)
 
 
 
@@ -718,7 +718,7 @@ def main():
 	meanCAIs = calcMeanCAIs(HE_genes, CAIvals, acc)
 
 
-	CAIGCpath = expression_dir + "_CAI_GC.csv"
+	CAIGCpath = expression_dir + "_CAI_a_ratios.csv"
 	write_mean_CAIGC(CAIGCpath, meanCAIs, GC3s, Aratios)
 
 	# Calculate the mean CAI for each genome

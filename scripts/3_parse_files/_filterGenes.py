@@ -125,7 +125,7 @@ def fileHeadFiltered(file):
 
 # Set up the file heading for the bad genes
 def fileHeadBad(file):
-	badFileHead = "Genus,Genome,Gene,fail: 1=used;2=!x3;3=!actg;4=bad_stop;5=inframe_stop;6=non_ntg_start\n"
+	badFileHead = "Genus,Acc,Gene,fail: 1=used;2=!x3;3=!actg;4=bad_stop;5=inframe_stop;6=non_ntg_start\n"
 	file.write(badFileHead)
 
 # Set up the file heading for the bad genes

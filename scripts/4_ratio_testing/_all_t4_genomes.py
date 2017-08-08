@@ -10,6 +10,40 @@
 
 from Bio import SeqIO
 import os
+import multiprocessing as mp
+
+
+def run_in_parralell(input_list, args, function_to_run, workers = None, onebyone = False):
+
+    if not workers:
+        workers = (mp.cpu_count()) - 1
+
+    if not onebyone:
+        chunk_list = [input_list[i::workers] for i in range(workers)]
+    else:
+        chunk_list = input_list
+
+    pool = mp.Pool(workers)
+    results = []
+
+    for i in chunk_list:
+        current_args = args.copy()
+        new_args = [i]
+
+
+
+        for arg in current_args:
+            # print(arg)
+            new_args.append(arg)
+
+        process = pool.apply_async(function_to_run, new_args)
+        results.append(process)
+
+    pool.close()
+    pool.join()
+
+    return(results)
+
 
 def check_seq(seq):
 
@@ -47,17 +81,37 @@ def run_genomes():
 
     # Open the output file and write the header line
     output_file = open('outputs/ratio_testing/site_4_ratios_all_t4_genomes.csv', 'w')
-    header_line = 'file,gc,seq_count,codon_count'
+    header_line = 'acc,genus,gc,seq_count,codon_count'
     for nt in ['A', 'C', 'G', 'T']:
         header_line += ',%s_fourth_count,%s_fourth_prop,%s_codon_count,%s_codon_prop,%s4_ratio' % (nt,nt,nt,nt,nt)
     header_line += '\n'
     output_file.write(header_line)
 
+    genomes = []
 
-
+    genome_count = 0
     # For each of the genomes in the directory containing the test genomes
     for genome in os.listdir('genome_extractions/t4/'):
+        genome_count += 1
+        if genome_count <= 20:
+            genomes.append(genome)
 
+
+
+
+    results = run_in_parralell(genomes, [], calc_ratios)
+    for result in results:
+        outputs = result.get()
+        for output in outputs:
+            output_file.write(output)
+
+    output_file.close()
+
+def calc_ratios(genomes):
+
+    outputs = []
+
+    for genome in genomes:
 
         # Set counters to 0
         seq_count = 0
@@ -66,6 +120,9 @@ def run_genomes():
         codon_start_count = {}
         nt_count = 0
         gc_nt_count = {}
+
+        got_genus = False
+
         for nt in ['A', 'C', 'G', 'T']:
             fourth_count[nt] = 0
             codon_start_count[nt] = 0
@@ -73,6 +130,13 @@ def run_genomes():
 
         # Read the sequences using Biopython
         for seq_record in SeqIO.parse("genome_extractions/t4/" + genome, "fasta"):
+
+            if not got_genus:
+                desc = seq_record.description
+                splits = desc.split(';')
+                genus = splits[0]
+                got_genus = True
+
 
             # Return the CDS
             seq = seq_record.seq
@@ -107,7 +171,7 @@ def run_genomes():
         gc = (gc_nt_count['G'] + gc_nt_count['C'])/nt_count
 
         # Start the line to be output to file
-        output_line = '%s,%s,%s,%s' % (genome, gc, seq_count, codon_count)
+        output_line = '%s,%s,%s,%s,%s' % (genome.strip('.txt'),genus,gc, seq_count, codon_count)
 
 
         print(genome)
@@ -130,10 +194,13 @@ def run_genomes():
 
         print('-' * 30)
 
-        output_line += '\n'
-        output_file.write(output_line)
 
-    output_file.close()
+
+        output_line += '\n'
+        outputs.append(output_line)
+        # output_file.write(output_line)
+
+    return(outputs)
 
 
 

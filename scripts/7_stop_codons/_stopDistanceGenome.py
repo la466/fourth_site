@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # Script number: 			7.1
-# File: 					1 of 3 
+# File: 					1 of 3
 # Prerequisite script(s):	1.1, 1.2, 2.1, 3.1, 3.2
 # Prerequisite file(s):		_filteredGenes.csv
 # Description: 				Calculate the distance to the first out of frame stop codon for genomes comparing A/not A
@@ -94,7 +94,7 @@ def newFile():
 
 def fileHead(file):
 
-	file.write("genome,gc,prop_A,prop_C,prop_T,prop_G,codons_A,codons_C,codons_T,codons_G,A_ratio,C_ratio,T_ratio,G_ratio,mean_dist,mean_dist_A,mean_dist_notA,prop_no_stops_a,prop_no_stops_not_a,mean_stops_a, means_stops_not_a\n")
+	file.write("acc,gc,prop_A,prop_C,prop_T,prop_G,codons_A,codons_C,codons_T,codons_G,A_ratio,C_ratio,T_ratio,G_ratio,mean_dist,mean_dist_A,mean_dist_notA,prop_no_stops_a,prop_no_stops_not_a,mean_stops_a, means_stops_not_a\n")
 
 def fileHeadDist(file):
 
@@ -272,7 +272,7 @@ def getStopDistance(genomes,acc,numGenomes,fileNumber, stopDistance,stopDistance
 
 
 		genomeLine = ""
-		genomeLine += "%s,%s" % (genome, proportion(sum(GC), len(GC)))
+		genomeLine += "%s,%s" % (acc, proportion(sum(GC), len(GC)))
 
 
 
