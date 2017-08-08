@@ -179,5 +179,44 @@ loess_analysis <- function(site, smoothing_param) {
 loess_analysis(4, 0.75)
 sink()
 
+
+loess_analysis_genera <- function(site, smoothing_param) {
+  
+  
+  
+  
+  t11_path <- paste('outputs/ratio_testing/site_', site, '/_site_', site, '_ratios.csv', sep='')
+  t4_path <- paste('outputs/ratio_testing/site_4_ratios_all_t4_genomes.csv', sep='')
+  
+  t11 <- read.csv(t11_path, head=T)
+  t4 <- read.csv(t4_path, head=T)
+  
+  t11$genus <- NA
+  reduced_11 <- data.frame(t11$Acc, t11$GC, t11$trans_table, t11$A_Ratio, t11$genus)
+  colnames(reduced_11) <- c('acc', 'gc', 'table', 'a_ratio', 'genus')
+  
+  t4$trans_table <- 4
+  reduced_4 <- data.frame(t4$acc, t4$gc, t4$trans_table, t4$A4_ratio, t4$genus)
+  colnames(reduced_4) <- c('acc', 'gc', 'table', 'a_ratio', 'genus')
+  
+  all <- rbind(reduced_11, reduced_4)
+  
+  data.lo <- loess(all$a_ratio~all$gc, parametric = F, span=smoothing_param)
+  resids <- data.lo$residuals
+  
+  
+  pdf('outputs/graphs/4.5_loess_all_t4_genomes_genera.pdf', height=5)
+  par(mfrow=c(1,1))
+  plot(all$gc,all$a_ratio, pch=ifelse(all$table==4, 17, 16), cex=ifelse(all$table==4, 0.8,0.7), col=ifelse(all$table==4, ifelse(all$genus=="Mycoplasma", 'blue', ifelse(all$genus=="Spiroplasma", '#e69f00', ifelse(all$genus=="Mesoplasma","#c979a7", ifelse(all$genus=="Ureaplasma","#009e73",'#56B4e9')))),'black'), xlab="GC", ylab=bquote(paste(italic('A'), ''['4'], ' enrichment ratio', sep="")))
+  j <- order(all$gc)
+  lines(all$gc[j], data.lo$fitted[j], col="red", lwd=2)
+  legend(0.25,3.2, legend=c("Table 11 genomes", "Mycoplasma", "Spiroplasma", 'Mesoplasma', 'Ureaplasma', 'Other'),col=c('black', 'blue', '#e69f00', '#c979a7', '#009e73', '#56B4e9' ), pch=c(16,17,17,17,17,17), cex=0.8,  box.lty=0)
+  mtext('C', at =c(0.15), line=2, font=(face=2), cex=1.2)
+  dev.off()
+  
+}
+
+loess_analysis_genera(4, 0.75)
+
 print('Outputs in outputs/r_outputs')
 print('Graphs in outputs/graphs')
