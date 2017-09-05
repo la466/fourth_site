@@ -1,7 +1,7 @@
 ### Source code for the fourth site paper.
 =========
 
-Link to paper: Link to be provided here when available
+Link to paper: https://doi.org/10.1093/molbev/msx223
 
 The vast majority of bacteria have an increase in adenine beyond that expected by chance alone. We determine the extent of this bias and propose and test a series of hypotheses that may help to explain this bias. This repository contains the source code for running the analysis described in the paper.
 
